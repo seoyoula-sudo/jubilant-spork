@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f3f5f7" />
+    <title>제비뽑기</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="제비뽑기 홈">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M7.2 3.5h9.6a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H7.2a2 2 0 0 1-2-2v-13a2 2 0 0 1 2-2Z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>
+          </span>
+          <span>제비뽑기</span>
+        </a>
+        <button class="icon-button" id="themeButton" type="button" aria-label="테마 변경">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.64 5.64l1.42 1.42M16.94 16.94l1.42 1.42M18.36 5.64l-1.42 1.42M7.06 16.94l-1.42 1.42"/><circle cx="12" cy="12" r="4"/></svg>
+        </button>
+      </header>
+
+      <section class="workspace">
+        <aside class="panel setup-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">SETUP</p>
+              <h1>참가자 설정</h1>
+            </div>
+            <button class="text-button" id="resetButton" type="button">초기화</button>
+          </div>
+
+          <div class="field">
+            <label for="participants">참가자 목록</label>
+            <textarea id="participants" spellcheck="false" aria-describedby="participantCount">김민준
+이서연
+박도윤
+최지우
+정하준
+한예린
+장시우
+윤서아</textarea>
+            <div class="field-footer">
+              <span id="participantCount">8명</span>
+              <span>한 줄에 한 명씩 입력</span>
+            </div>
+          </div>
+
+          <div class="field draw-count-field">
+            <label for="drawCount">뽑을 인원 수</label>
+            <div class="stepper">
+              <button type="button" id="decreaseCount" aria-label="인원 수 감소">−</button>
+              <input id="drawCount" type="number" min="1" max="8" value="3" />
+              <button type="button" id="increaseCount" aria-label="인원 수 증가">+</button>
+            </div>
+          </div>
+
+          <label class="check-row" for="allowDuplicate">
+            <input id="allowDuplicate" type="checkbox" />
+            <span class="custom-check" aria-hidden="true"></span>
+            <span>중복 허용</span>
+          </label>
+
+          <button class="draw-button" id="drawButton" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.64 5.64l2.12 2.12M16.24 16.24l2.12 2.12M18.36 5.64l-2.12 2.12M7.76 16.24l-2.12 2.12"/><circle cx="12" cy="12" r="4"/></svg>
+            제비 뽑기
+          </button>
+        </aside>
+
+        <section class="panel result-panel" aria-live="polite">
+          <div class="panel-heading result-heading">
+            <div>
+              <p class="eyebrow">RESULT</p>
+              <h2>당첨 결과</h2>
+            </div>
+            <div class="result-actions">
+              <button class="icon-button small" id="copyButton" type="button" aria-label="결과 복사" title="결과 복사">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+              </button>
+              <button class="icon-button small" id="downloadButton" type="button" aria-label="결과 다운로드" title="결과 다운로드">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="results" id="results">
+            <article class="winner-card">
+              <span class="rank">01</span>
+              <strong>김민준</strong>
+            </article>
+            <article class="winner-card">
+              <span class="rank">02</span>
+              <strong>최지우</strong>
+            </article>
+            <article class="winner-card">
+              <span class="rank">03</span>
+              <strong>이서연</strong>
+            </article>
+          </div>
+
+          <div class="empty-state" id="emptyState" hidden>
+            <div class="empty-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 3.5h9.6a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H7.2a2 2 0 0 1-2-2v-13a2 2 0 0 1 2-2Z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>
+            </div>
+            <p>아직 뽑은 결과가 없습니다.</p>
+          </div>
+
+          <div class="history">
+            <div class="history-heading">
+              <h3>최근 뽑기</h3>
+              <button class="text-button" id="clearHistory" type="button">내역 지우기</button>
+            </div>
+            <div id="historyList" class="history-list"></div>
+          </div>
+        </section>
+      </section>
+    </main>
+    <div class="toast" id="toast" role="status"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
